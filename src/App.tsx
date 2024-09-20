@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <button
-        onMouseDown={async () => {
+        onPointerDown={async () => {
           try {
             const stream = await navigator.mediaDevices.getUserMedia({
               audio: true,
@@ -47,7 +47,7 @@ function App() {
             console.log(error);
           }
         }}
-        onMouseUp={() => {
+        onPointerUp={() => {
           if (voice) {
             voice.stop();
             console.log('voice stop');
