@@ -18,9 +18,9 @@ function App() {
   });
 
   return (
-    <>
+    <div style={{ textAlign: 'center' }}>
       <button
-        onPointerDown={async () => {
+        onClick={async () => {
           try {
             const stream = await navigator.mediaDevices.getUserMedia({
               audio: true,
@@ -35,9 +35,7 @@ function App() {
 
             media.onstop = () => {
               const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-              audioChunks = []; // Reset for the next recording
-
-              // Emit audio blob via Socket.io to the server
+              audioChunks = [];
               socket.emit('voice', audioBlob);
             };
 
@@ -47,16 +45,21 @@ function App() {
             console.log(error);
           }
         }}
-        onPointerUp={() => {
+      >
+        Start
+      </button>
+
+      <button
+        onClick={() => {
           if (voice) {
             voice.stop();
             console.log('voice stop');
           }
         }}
       >
-        klik
+        Stop
       </button>
-    </>
+    </div>
   );
 }
 
